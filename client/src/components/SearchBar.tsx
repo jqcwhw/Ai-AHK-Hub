@@ -1,0 +1,55 @@
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
+  onSearch: () => void;
+  placeholder?: string;
+  inputHeight?: string;
+  buttonHeight?: string;
+  textSize?: string;
+  iconSize?: string;
+}
+
+export default function SearchBar({ 
+  value, 
+  onChange, 
+  onSearch, 
+  placeholder = "Search for AutoHotkey macros...",
+  inputHeight = "h-20",
+  buttonHeight = "h-20",
+  textSize = "text-lg",
+  iconSize = "h-6 w-6"
+}: SearchBarProps) {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSearch();
+    }
+  };
+
+  return (
+    <div className="flex gap-3 w-full items-center">
+      <div className="relative flex-1">
+        <Search className={`absolute left-5 top-1/2 transform -translate-y-1/2 ${iconSize} text-muted-foreground pointer-events-none`} />
+        <Input
+          type="search"
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyPress={handleKeyPress}
+          className={`pl-14 ${inputHeight} ${textSize} font-medium`}
+          data-testid="input-search"
+        />
+      </div>
+      <Button 
+        onClick={onSearch}
+        className="h-14 px-8 text-base font-bold"
+        data-testid="button-search"
+      >
+        Search
+      </Button>
+    </div>
+  );
+}

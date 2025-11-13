@@ -1,0 +1,18 @@
+const { Client } = require('pg')
+
+async function queryDatabase() {
+  const databaseUrl = process.env.DATABASE_URL
+  const client = new Client({ connectionString: databaseUrl })
+
+  try {
+    await client.connect()
+    const result = await client.query('SELECT * FROM users WHERE active = true')
+    return result.rows
+  } finally {
+    await client.end()
+  }
+}
+
+queryDatabase()
+  .then(rows => console.log(rows))
+  .catch(err => console.error(err))
