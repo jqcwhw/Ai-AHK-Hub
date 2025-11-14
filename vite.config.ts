@@ -28,7 +28,7 @@ export default defineConfig(async () => {
     },
     root: path.resolve(__dirname, "client"),
     build: {
-      outDir: path.resolve(__dirname, "dist/public"),
+      outDir: path.resolve(__dirname, "dist"), // ✅ fixed: now outputs to dist/
       emptyOutDir: true,
     },
     server: {
@@ -39,3 +39,4 @@ export default defineConfig(async () => {
     },
   };
 });
+
