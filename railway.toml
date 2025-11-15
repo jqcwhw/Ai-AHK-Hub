@@ -1,0 +1,10 @@
+[build]
+# Override the default install step
+install = "npm install"
+
+# Build step: build client then server
+build = "cd client && npm run build && cd ../server && tsc"
+
+[start]
+# Start the server
+cmd = "cross-env NODE_ENV=production node dist/index.js"
